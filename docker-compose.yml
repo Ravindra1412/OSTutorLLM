@@ -1,0 +1,74 @@
+# =============================================================================
+# docker-compose.yml — Part 3.12, Section 4
+#
+# Container Architecture: a single `web` service (Flask + Gunicorn).
+# This project's database is SQLite (Part 3.4's own documented choice
+# for a free, zero-infrastructure student deployment) — a separate
+# `db` container (Postgres) is NOT included here because it would be
+# pure overhead for the default configuration. The commented-out
+# `postgres` service below shows exactly how to add one if a real
+# multi-user production deployment needs it (Section 3 — Cloud
+# Deployment); `DATABASE_URL` is already read from the environment by
+# app/config/config.py, so switching engines needs no code change.
+#
+# Persistent Database: the named volume `ostutorllm_data` is mounted
+# over /app/database so the SQLite file survives `docker compose down`
+# (only `docker compose down -v` removes it — a deliberate two-step
+# safety against accidental data loss).
+#
+# Networking: Compose's default bridge network already lets the `web`
+# service resolve other services (e.g. a future `postgres` service) by
+# name — no custom network needed for this single-service setup.
+# =============================================================================
+
+services:
+  web:
+    build: .
+    image: ostutorllm-backend:latest
+    container_name: ostutorllm_web
+    restart: unless-stopped
+    ports:
+      - "${PORT:-5000}:5000"
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      SECRET_KEY: ${SECRET_KEY:?SECRET_KEY must be set in .env — see .env.example}
+      DATABASE_URL: sqlite:////app/database/dev.db
+      AI_PROVIDER: ${AI_PROVIDER:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://localhost:11434}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ostutorllm_data:/app/database       # SQLite file — persists across restarts
+      - ostutorllm_uploads:/app/uploads       # faculty-uploaded content + backups
+      - ostutorllm_logs:/app/logs               # rotating log files
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # --- Optional: real Postgres instead of SQLite (Section 3 — Cloud) ---
+  # Uncomment this service AND change DATABASE_URL above to
+  # postgresql://ostutor:ostutor@postgres:5432/ostutorllm for a
+  # multi-worker-safe production database. Not enabled by default —
+  # SQLite is this project's documented, free-tier-first choice.
+  #
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: ostutorllm_postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: ostutor
+  #     POSTGRES_PASSWORD: ostutor
+  #     POSTGRES_DB: ostutorllm
+  #   volumes:
+  #     - ostutorllm_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  ostutorllm_data:
+  ostutorllm_uploads:
+  ostutorllm_logs:
+  # ostutorllm_postgres_data:

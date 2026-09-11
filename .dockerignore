@@ -1,0 +1,24 @@
+# Part 3.12 — keeps the Docker build context small and never bakes
+# secrets, local databases, or dev artifacts into the image.
+.git/
+.gitignore
+venv/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/reports/coverage_html/
+tests/reports/coverage.xml
+.coverage
+.env
+database/*.db
+logs/*.log
+uploads/content/*
+uploads/backups/*
+!uploads/content/.gitkeep
+!uploads/backups/.gitkeep
+.vscode/
+.idea/
+.DS_Store
+docs/
+*.md
