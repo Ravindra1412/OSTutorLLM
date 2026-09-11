@@ -1,0 +1,177 @@
+/* =====================================================================
+   OSTutorLLM — Layout
+   Navbar, Sidebar, Footer, Breadcrumb, and page-specific layout rules.
+   ===================================================================== */
+
+/* ---------- Top Navbar (app shell) ---------- */
+.app-navbar{
+  height:64px;
+  background:var(--bg-surface);
+  border-bottom:1px solid var(--border-subtle);
+  display:flex; align-items:center;
+  padding:0 var(--space-5);
+  position:sticky; top:0; z-index:1030;
+}
+.app-navbar__brand{ display:flex; align-items:center; gap:.5rem; font-family:var(--font-display); font-weight:700; font-size:1.1rem; color:var(--text-primary); }
+.app-navbar__brand .dot{ width:10px; height:10px; border-radius:50%; background:var(--amber-500); box-shadow:0 0 10px var(--amber-500); }
+.app-navbar__toggle{ background:transparent; border:none; color:var(--text-secondary); font-size:1.25rem; margin-right:var(--space-3); }
+.app-navbar__spacer{ flex:1; }
+.app-navbar__icon-btn{
+  background:transparent; border:1px solid transparent; color:var(--text-secondary);
+  width:38px; height:38px; border-radius:var(--radius-md);
+  display:inline-flex; align-items:center; justify-content:center; position:relative;
+}
+.app-navbar__icon-btn:hover{ background:var(--bg-elevated-hover); color:var(--text-primary); }
+.app-navbar__badge-dot{ position:absolute; top:6px; right:6px; width:8px; height:8px; border-radius:50%; background:var(--danger); border:2px solid var(--bg-surface); }
+
+/* Public marketing navbar (landing/about/help) */
+.public-navbar{
+  background:rgba(13,17,23,.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-subtle);
+  position:sticky; top:0; z-index:1030;
+}
+[data-theme="light"] .public-navbar{ background:rgba(245,247,249,.85); }
+
+/* ---------- Sidebar ---------- */
+.app-shell{ display:flex; min-height:100vh; }
+.app-sidebar{
+  width:260px; flex-shrink:0;
+  background:var(--bg-surface);
+  border-right:1px solid var(--border-subtle);
+  padding:var(--space-5) var(--space-3);
+  transition:transform var(--dur-base) var(--ease-out), width var(--dur-base) var(--ease-out);
+  position:sticky; top:64px; height:calc(100vh - 64px); overflow-y:auto;
+}
+.app-sidebar.collapsed{ width:76px; }
+.app-sidebar.collapsed .nav-label,
+.app-sidebar.collapsed .sidebar-section-title{ display:none; }
+.sidebar-section-title{ color:var(--text-muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; padding:0 var(--space-3); margin:var(--space-4) 0 var(--space-2); }
+.sidebar-nav{ list-style:none; padding:0; margin:0; }
+.sidebar-nav__link{
+  display:flex; align-items:center; gap:.75rem;
+  padding:.65rem .8rem; border-radius:var(--radius-md);
+  color:var(--text-secondary); font-weight:500; font-size:.92rem;
+  margin-bottom:2px;
+}
+.sidebar-nav__link:hover{ background:var(--bg-elevated-hover); color:var(--text-primary); text-decoration:none; }
+.sidebar-nav__link.active{ background:rgba(255,180,84,.12); color:var(--amber-400); }
+.sidebar-nav__link i{ width:20px; text-align:center; }
+.app-main{ flex:1; min-width:0; padding:var(--space-6); }
+
+@media (max-width:991.98px){
+  .app-sidebar{
+    position:fixed; left:0; top:64px; z-index:1040;
+    transform:translateX(-100%);
+  }
+  .app-sidebar.mobile-open{ transform:translateX(0); box-shadow:var(--shadow-md); }
+  .app-main{ padding:var(--space-4); }
+}
+
+/* ---------- Footer ---------- */
+.app-footer{
+  background:var(--bg-surface); border-top:1px solid var(--border-subtle);
+  padding:var(--space-6) 0; color:var(--text-muted); font-size:.9rem;
+}
+.app-footer a{ color:var(--text-secondary); }
+.app-footer a:hover{ color:var(--amber-500); }
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb{ background:transparent; padding:0; margin-bottom:var(--space-4); font-size:.88rem; }
+.breadcrumb-item, .breadcrumb-item a{ color:var(--text-muted); }
+.breadcrumb-item.active{ color:var(--text-primary); }
+.breadcrumb-item+.breadcrumb-item::before{ color:var(--text-muted); content:"›"; }
+
+/* ---------- Profile Menu ---------- */
+.profile-menu-btn{ display:flex; align-items:center; gap:.5rem; background:transparent; border:none; padding:.3rem .5rem; border-radius:var(--radius-pill); }
+.profile-menu-btn:hover{ background:var(--bg-elevated-hover); }
+.avatar-circle{
+  width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(135deg, var(--amber-500), var(--cyan-400));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; color:#0D1117; font-size:.85rem;
+}
+.dropdown-menu{ background:var(--bg-elevated); border:1px solid var(--border-strong); border-radius:var(--radius-md); }
+.dropdown-item{ color:var(--text-secondary); }
+.dropdown-item:hover{ background:var(--bg-elevated-hover); color:var(--text-primary); }
+
+/* =====================================================================
+   Page-specific: Tutor Chat
+   ===================================================================== */
+.chat-shell{ display:flex; flex-direction:column; height:calc(100vh - 64px - 2*var(--space-6)); background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); overflow:hidden; }
+.chat-header{ padding:var(--space-4) var(--space-5); border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; gap:var(--space-3); }
+.hint-stage-indicator{ display:flex; gap:6px; }
+.hint-stage-indicator__dot{ width:9px; height:9px; border-radius:50%; background:var(--border-strong); }
+.hint-stage-indicator__dot.filled{ background:var(--amber-500); }
+.chat-messages{ flex:1; overflow-y:auto; padding:var(--space-5); display:flex; flex-direction:column; gap:var(--space-4); }
+.msg-row{ display:flex; gap:.6rem; max-width:78%; }
+.msg-row.student{ align-self:flex-end; flex-direction:row-reverse; }
+.msg-avatar{ width:32px; height:32px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.9rem; }
+.msg-avatar.tutor{ background:rgba(255,180,84,.15); color:var(--amber-400); }
+.msg-avatar.student{ background:rgba(99,210,200,.15); color:var(--cyan-400); }
+.msg-bubble{ padding:.75rem 1rem; border-radius:var(--radius-lg); font-size:.94rem; line-height:1.6; }
+.msg-row.tutor .msg-bubble{ background:var(--bg-elevated); border:1px solid var(--border-subtle); border-top-left-radius:4px; }
+.msg-row.student .msg-bubble{ background:rgba(99,210,200,.12); border:1px solid rgba(99,210,200,.25); border-top-right-radius:4px; }
+.msg-bubble.hint-bubble{ border-color:rgba(255,180,84,.35); }
+.msg-bubble.hint-bubble .hint-tag{ color:var(--amber-500); font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; display:flex; align-items:center; gap:.3rem; margin-bottom:.35rem; }
+.msg-bubble pre{ background:var(--bg-void); padding:.6rem .8rem; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:.85rem; overflow-x:auto; margin:.5rem 0; }
+.typing-indicator{ display:flex; gap:4px; padding:.75rem 1rem; }
+.chat-input-bar{ padding:var(--space-4) var(--space-5); border-top:1px solid var(--border-subtle); }
+.chat-quick-actions{ display:flex; gap:.5rem; margin-bottom:.6rem; flex-wrap:wrap; }
+.chat-input-row{ display:flex; gap:.6rem; align-items:flex-end; }
+.chat-input-row textarea{ resize:none; }
+
+/* =====================================================================
+   Page-specific: Quiz
+   ===================================================================== */
+.quiz-progress-track{ display:flex; gap:4px; }
+.quiz-progress-track__seg{ flex:1; height:6px; border-radius:var(--radius-pill); background:var(--border-subtle); }
+.quiz-progress-track__seg.done{ background:var(--cyan-400); }
+.quiz-progress-track__seg.current{ background:var(--amber-500); }
+.quiz-option{
+  display:block; width:100%; text-align:left;
+  background:var(--bg-elevated); border:1px solid var(--border-subtle);
+  border-radius:var(--radius-md); padding:.85rem 1.1rem; margin-bottom:.65rem; color:var(--text-primary);
+  transition:border-color var(--dur-fast), background var(--dur-fast);
+}
+.quiz-option:hover{ border-color:var(--border-strong); }
+.quiz-option.selected{ border-color:var(--amber-500); background:rgba(255,180,84,.08); }
+.quiz-option.correct{ border-color:var(--success); background:rgba(95,216,146,.1); }
+.quiz-option.incorrect{ border-color:var(--danger); background:rgba(241,113,113,.1); }
+.quiz-timer{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+
+/* =====================================================================
+   Page-specific: Code Editor
+   ===================================================================== */
+.editor-shell{ display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); min-height:520px; }
+@media (max-width:991.98px){ .editor-shell{ grid-template-columns:1fr; } }
+.editor-pane{ background:#0A0E13; border:1px solid var(--border-subtle); border-radius:var(--radius-md); display:flex; flex-direction:column; }
+.editor-pane__body{ flex:1; padding:var(--space-4); }
+.editor-textarea{
+  width:100%; height:100%; min-height:420px;
+  background:transparent; border:none; color:#D7DEE5;
+  font-family:var(--font-mono); font-size:.92rem; line-height:1.7; resize:vertical;
+}
+.editor-textarea:focus{ outline:none; }
+.feedback-item{ border-left:3px solid var(--amber-500); background:var(--bg-elevated); border-radius:0 var(--radius-md) var(--radius-md) 0; padding:.8rem 1rem; margin-bottom:.7rem; }
+.feedback-item.resolved{ border-left-color:var(--success); opacity:.7; }
+
+/* =====================================================================
+   Landing page
+   ===================================================================== */
+.hero-section{ padding:var(--space-9) 0 var(--space-7); position:relative; overflow:hidden; }
+.hero-glow{ position:absolute; top:-120px; right:-120px; width:420px; height:420px; background:radial-gradient(circle, rgba(255,180,84,.18), transparent 70%); pointer-events:none; }
+.feature-card{ background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:var(--space-5); height:100%; }
+.feature-card__icon{ width:44px; height:44px; border-radius:var(--radius-md); background:rgba(255,180,84,.12); color:var(--amber-500); display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:var(--space-3); }
+.stack-pill{ background:var(--bg-elevated); border:1px solid var(--border-subtle); border-radius:var(--radius-pill); padding:.4rem 1rem; font-family:var(--font-mono); font-size:.82rem; color:var(--text-secondary); }
+
+/* Auth pages */
+.auth-shell{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:var(--space-5); }
+.auth-card{ width:100%; max-width:420px; }
+
+/* Stat / dashboard cards */
+.stat-card{ background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:var(--space-5); }
+.stat-card__value{ font-family:var(--font-display); font-size:1.9rem; font-weight:700; }
+.mastery-band-low{ color:var(--danger); }
+.mastery-band-mid{ color:var(--amber-500); }
+.mastery-band-high{ color:var(--success); }

@@ -1,0 +1,32 @@
+{% extends "public_base.html" %}
+{% block title %}Study Planner{% endblock %}
+{% block content %}
+<div class="container" style="max-width:950px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div>
+      <p class="section-eyebrow mb-1">AI Learning Mentor</p>
+      <h4 class="mb-0">Study Planner</h4>
+    </div>
+    <a href="{{ url_for('mentor_pages_bp.mentor_home_page') }}" class="btn btn-outline-accent btn-sm">Back to Mentor</a>
+  </div>
+
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-weekly">Weekly</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-monthly">Monthly</button></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tab-weekly">
+      <button class="btn btn-accent btn-sm mb-3" id="regenerate-weekly-btn">Regenerate Weekly Plan</button>
+      <div id="weekly-schedule" class="d-flex flex-column gap-2"></div>
+    </div>
+    <div class="tab-pane fade" id="tab-monthly">
+      <button class="btn btn-accent btn-sm mb-3" id="regenerate-monthly-btn">Regenerate Monthly Plan</button>
+      <div id="monthly-schedule" class="d-flex flex-column gap-2"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/mentor_study_planner.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,4 @@
+Generate {question_count} quiz question(s) on the topic of {topic}, targeting difficulty level {difficulty_level} (1=beginner, 5=advanced).
+Use a mix of these question types unless told otherwise: multiple-choice, fill-in-the-blank, output-prediction, debugging, scenario.
+For each question, output strict JSON with these fields: question_text, question_type, options (list, MCQ only, else null), correct_answer, difficulty_level.
+Do not include any explanation outside the JSON. Do not repeat concepts already covered in: {recent_topics_covered}.

@@ -1,0 +1,8 @@
+A student's shell script (topic: {topic}) has this issue flagged by static analysis:
+
+Category: {category}
+Severity: {severity}
+Line: {line_number}
+Static finding: {static_message}
+
+Explain in 2-3 sentences WHY this is a problem in a real-world sense (not just "the rule says so") — what could actually go wrong if this script ran with this issue present. Do not provide the corrected code. End with a guiding question that helps the student think through the fix themselves.

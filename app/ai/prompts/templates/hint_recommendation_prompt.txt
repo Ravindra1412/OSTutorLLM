@@ -1,0 +1,5 @@
+A student is stuck on this quiz question and has requested a hint. Do NOT reveal the answer.
+
+Question ({question_type}, topic: {topic}): {question_text}
+
+Give ONE short hint (1-2 sentences) that nudges them toward the reasoning needed, consistent with the platform's step-by-step teaching philosophy — the same hint-ladder spirit used in the Tutor Chat, applied here to a quiz context.

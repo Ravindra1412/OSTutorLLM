@@ -1,0 +1,183 @@
+{% extends "public_base.html" %}
+{% block title %}Quiz Dashboard{% endblock %}
+{% block content %}
+<div class="container" style="max-width:820px;">
+  <div class="mb-4">
+    <p class="section-eyebrow mb-1">Assessment</p>
+    <h4 class="mb-0">Quiz Dashboard</h4>
+  </div>
+
+  {% if authored_quizzes %}
+  <div class="card card-elevated mb-4" style="border: 1px solid var(--amber-500);">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h6 class="mb-0" style="color: var(--amber-500);">
+          <i class="bi bi-patch-check me-2"></i>Assigned Faculty Quizzes
+        </h6>
+        <span class="badge" style="background: var(--bg-surface); border: 1px solid var(--border);">
+          {{ authored_quizzes|length }} Available
+        </span>
+      </div>
+      <div class="list-group list-group-flush">
+        {% for q in authored_quizzes %}
+          <div class="list-group-item d-flex align-items-center justify-content-between bg-transparent border-secondary border-opacity-25 px-0 py-2">
+            <div>
+              <div class="fw-semibold text-light">{{ q.title }}</div>
+              <small class="text-muted-custom">
+                Difficulty: {{ q.difficulty }}/5 {% if q.time_limit_seconds %} · {{ q.time_limit_seconds }}s{% else %} · Untimed{% endif %}
+              </small>
+            </div>
+            <button type="button" class="btn btn-accent btn-sm" onclick="startAuthoredQuiz({{ q.id }})">
+              <i class="bi bi-play-fill me-1"></i> Start Quiz
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card card-hover h-100" role="button" data-mode-card="topic">
+        <div class="card-body">
+          <div class="feature-card__icon mb-2"><i class="bi bi-signpost-split"></i></div>
+          <h6 class="mb-1">By Topic</h6>
+          <p class="text-muted-custom small mb-0">Pick a topic yourself, difficulty adapts to your history.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-hover h-100" role="button" data-mode-card="learning_gap">
+        <div class="card-body">
+          <div class="feature-card__icon mb-2"><i class="bi bi-exclamation-circle"></i></div>
+          <h6 class="mb-1">Learning Gap</h6>
+          <p class="text-muted-custom small mb-0">Auto-targets your single weakest tracked topic.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-hover h-100" role="button" data-mode-card="revision">
+        <div class="card-body">
+          <div class="feature-card__icon mb-2"><i class="bi bi-arrow-repeat"></i></div>
+          <h6 class="mb-1">Revision</h6>
+          <p class="text-muted-custom small mb-0">Revisit the topic you learned longest ago.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-elevated">
+    <div class="card-body">
+      <form id="quiz-start-form">
+        <input type="hidden" id="mode" value="topic">
+
+        <div class="mb-3" id="topic-select-group">
+          <label class="form-label">Topic</label>
+          <select class="form-select" id="topic-select">
+            {% for t in topics %}
+            <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Number of questions</label>
+            <input type="number" class="form-control" id="question-count" value="5" min="1" max="15">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">Time limit (seconds)</label>
+            <input type="number" class="form-control" id="time-limit" value="300" min="0" step="30">
+            <small class="text-muted-custom">0 = untimed</small>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label d-block">Negative marking</label>
+            <div class="form-check form-switch mt-2">
+              <input class="form-check-input" type="checkbox" id="negative-marking">
+              <label class="form-check-label small text-muted-custom" for="negative-marking">Enabled</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="quiz-start-error" class="alert d-none" style="background:var(--bg-elevated);border:1px solid var(--danger);color:var(--text-primary);"></div>
+
+        <button type="submit" class="btn btn-accent btn-lg w-100">
+          <span id="start-btn-text">Start Quiz</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{{ url_for('quiz_pages_bp.leaderboard_page') }}" class="btn btn-ghost btn-sm"><i class="bi bi-trophy me-1"></i>View Leaderboard</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('[data-mode-card]').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('[data-mode-card]').forEach(c => c.style.borderColor = '');
+    card.style.borderColor = 'var(--amber-500)';
+    const mode = card.getAttribute('data-mode-card');
+    document.getElementById('mode').value = mode;
+    document.getElementById('topic-select-group').classList.toggle('d-none', mode !== 'topic');
+  });
+});
+
+async function startAuthoredQuiz(quizId) {
+  const errorBox = document.getElementById('quiz-start-error');
+  if (errorBox) errorBox.classList.add('d-none');
+
+  try {
+    const resp = await fetch(`/api/quiz/authored/${quizId}/start`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const body = await resp.json();
+    if (!resp.ok) {
+      alert(body.message || 'Could not start the authored quiz.');
+      return;
+    }
+    window.location.href = `/quiz/attempt/${body.data.attempt_id}`;
+  } catch (err) {
+    alert('Network error while starting quiz.');
+  }
+}
+
+document.getElementById('quiz-start-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errorBox = document.getElementById('quiz-start-error');
+  errorBox.classList.add('d-none');
+
+  const mode = document.getElementById('mode').value;
+  const payload = {
+    mode: mode,
+    question_count: parseInt(document.getElementById('question-count').value, 10),
+    time_limit_seconds: parseInt(document.getElementById('time-limit').value, 10) || null,
+    negative_marking_enabled: document.getElementById('negative-marking').checked,
+  };
+  if (mode === 'topic') payload.topic = document.getElementById('topic-select').value;
+
+  try {
+    const resp = await fetch('/api/quiz/start', {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload),
+    });
+    const body = await resp.json();
+    if (!resp.ok) {
+      errorBox.textContent = body.message || 'Could not start the quiz.';
+      errorBox.classList.remove('d-none');
+      return;
+    }
+    window.location.href = `/quiz/attempt/${body.data.attempt_id}`;
+  } catch (err) {
+    errorBox.textContent = 'Network error — please try again.';
+    errorBox.classList.remove('d-none');
+  }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "public_base.html" %}
+{% block title %}Quiz Management{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1000px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Quiz Management</h4></div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+      <button class="btn btn-accent btn-sm" data-bs-toggle="modal" data-bs-target="#quiz-modal">+ New Quiz</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead><tr><th>Title</th><th>Topic</th><th>Questions</th><th>Published</th><th>Attempts</th><th></th></tr></thead>
+      <tbody id="quizzes-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="quiz-modal" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">New Quiz</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body">
+      <div class="row g-2 mb-2">
+        <div class="col-md-6"><label class="form-label">Title</label><input class="form-control" id="quiz-title"></div>
+        <div class="col-md-6">
+          <label class="form-label">Topic</label>
+          <select class="form-select" id="quiz-topic-select"></select>
+        </div>
+      </div>
+      <div class="row g-2 mb-3">
+        <div class="col-md-4"><label class="form-label">Difficulty (1-5)</label><input type="number" min="1" max="5" class="form-control" id="quiz-difficulty" value="2"></div>
+        <div class="col-md-4"><label class="form-label">Time Limit (sec, blank = untimed)</label><input type="number" class="form-control" id="quiz-time-limit"></div>
+        <div class="col-md-4 d-flex align-items-end">
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="quiz-publish"><label class="form-check-label small" for="quiz-publish">Publish immediately</label></div>
+        </div>
+      </div>
+
+      <h6 class="mb-2">Questions (MCQ)</h6>
+      <div id="questions-container"></div>
+      <button class="btn btn-outline-accent btn-sm mt-2" id="add-question-btn">+ Add Question</button>
+    </div>
+    <div class="modal-footer"><button class="btn btn-accent" id="save-quiz-btn">Create Quiz</button></div>
+  </div></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_quizzes.js') }}"></script>
+{% endblock %}

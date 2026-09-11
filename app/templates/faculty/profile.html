@@ -1,0 +1,33 @@
+{% extends "public_base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container" style="max-width:600px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Profile</h4></div>
+    <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <div class="card card-elevated mb-4"><div class="card-body">
+    <h6 class="mb-3">Profile Details</h6>
+    <div class="mb-2"><label class="form-label">Name</label><input class="form-control" id="p-name"></div>
+    <div class="mb-2"><label class="form-label">Email</label><input class="form-control" id="p-email" disabled></div>
+    <div class="mb-2"><label class="form-label">Department</label><input class="form-control" id="p-department"></div>
+    <div class="mb-2"><label class="form-label">Designation</label><input class="form-control" id="p-title"></div>
+    <div class="mb-2"><label class="form-label">Subjects Taught</label><input class="form-control" id="p-subjects" placeholder="Operating Systems, Shell Programming"></div>
+    <div class="mb-3"><label class="form-label">Bio</label><textarea class="form-control" id="p-bio" rows="3"></textarea></div>
+    <button class="btn btn-accent" id="save-profile-btn">Save Profile</button>
+    <p class="text-success small mt-2 d-none" id="profile-saved-msg">Saved.</p>
+  </div></div>
+
+  <div class="card card-elevated"><div class="card-body">
+    <h6 class="mb-3">Change Password</h6>
+    <div class="mb-2"><input type="password" class="form-control" id="current-password" placeholder="Current password"></div>
+    <div class="mb-2"><input type="password" class="form-control" id="new-password" placeholder="New password"></div>
+    <button class="btn btn-outline-accent" id="change-password-btn">Change Password</button>
+    <p class="small mt-2" id="password-msg"></p>
+  </div></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_profile.js') }}"></script>
+{% endblock %}

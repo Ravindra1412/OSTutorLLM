@@ -1,0 +1,73 @@
+{% extends "public_base.html" %}
+{% block title %}Faculty Dashboard{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1150px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div>
+      <p class="section-eyebrow mb-1">Faculty Portal</p>
+      <h4 class="mb-0">Dashboard</h4>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <a href="{{ url_for('faculty_pages_bp.students_page') }}" class="btn btn-outline-accent btn-sm">Students</a>
+      <a href="{{ url_for('faculty_pages_bp.analytics_page') }}" class="btn btn-outline-accent btn-sm">Analytics</a>
+      <a href="{{ url_for('faculty_pages_bp.content_page') }}" class="btn btn-outline-accent btn-sm">Content</a>
+      <a href="{{ url_for('faculty_pages_bp.quizzes_page') }}" class="btn btn-outline-accent btn-sm">Quizzes</a>
+      <a href="{{ url_for('faculty_pages_bp.assignments_page') }}" class="btn btn-outline-accent btn-sm">Assignments</a>
+      <a href="{{ url_for('faculty_pages_bp.reports_page') }}" class="btn btn-outline-accent btn-sm">Reports</a>
+      <a href="{{ url_for('faculty_pages_bp.notifications_page') }}" class="btn btn-outline-accent btn-sm">Notifications</a>
+      <a href="{{ url_for('faculty_pages_bp.settings_page') }}" class="btn btn-outline-accent btn-sm">Settings</a>
+      <a href="{{ url_for('faculty_pages_bp.profile_page') }}" class="btn btn-outline-accent btn-sm">Profile</a>
+    </div>
+  </div>
+
+  <div id="loading" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status"></div>
+  </div>
+
+  <div id="content" class="d-none">
+    <div class="row g-3 mb-4">
+      <div class="col-md-2 col-6"><div class="card card-elevated h-100"><div class="card-body">
+        <p class="text-muted-custom small mb-1">Total Students</p>
+        <h3 class="mb-0" id="stat-total">-</h3>
+      </div></div></div>
+      <div class="col-md-2 col-6"><div class="card card-elevated h-100"><div class="card-body">
+        <p class="text-muted-custom small mb-1">Active (7d)</p>
+        <h3 class="mb-0" id="stat-active">-</h3>
+      </div></div></div>
+      <div class="col-md-2 col-6"><div class="card card-elevated h-100"><div class="card-body">
+        <p class="text-muted-custom small mb-1">Lessons Completed</p>
+        <h3 class="mb-0" id="stat-lessons">-</h3>
+      </div></div></div>
+      <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+        <p class="text-muted-custom small mb-1">Avg Quiz Score</p>
+        <h3 class="mb-0" id="stat-quiz">-</h3>
+      </div></div></div>
+      <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+        <p class="text-muted-custom small mb-1">Avg Learning Time</p>
+        <h3 class="mb-0" id="stat-time">-</h3>
+      </div></div></div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <div class="card card-elevated h-100"><div class="card-body">
+          <h6 class="mb-3">Recent Activity (All Students)</h6>
+          <div id="recent-activity"></div>
+        </div></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card card-elevated h-100"><div class="card-body">
+          <h6 class="mb-3">System Health</h6>
+          <p class="small mb-1">Database: <span id="health-db" class="text-accent">-</span></p>
+          <p class="small mb-3">AI Provider: <span id="health-ai" class="text-accent">-</span></p>
+          <h6 class="mb-2">Notifications</h6>
+          <p class="small mb-0"><span id="unread-count">0</span> unread — <a href="{{ url_for('faculty_pages_bp.notifications_page') }}">view all</a></p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_dashboard.js') }}"></script>
+{% endblock %}

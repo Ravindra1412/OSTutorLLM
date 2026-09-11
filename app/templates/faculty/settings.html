@@ -1,0 +1,53 @@
+{% extends "public_base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<div class="container" style="max-width:700px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Settings</h4></div>
+    <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <div class="card card-elevated mb-4"><div class="card-body">
+    <h6 class="mb-3">AI Tutor Settings</h6>
+    <div class="form-check form-switch mb-2">
+      <input class="form-check-input" type="checkbox" id="ai-enabled">
+      <label class="form-check-label small">AI Tutor Enabled</label>
+    </div>
+    <div class="row g-2 mb-2">
+      <div class="col-md-6"><label class="form-label small">Default Difficulty (1-5)</label><input type="number" min="1" max="5" class="form-control" id="ai-difficulty"></div>
+      <div class="col-md-6"><label class="form-label small">Max Hint Stage</label><input type="number" min="1" max="4" class="form-control" id="ai-max-hint"></div>
+    </div>
+    <div class="mb-3"><label class="form-label small">Default Teaching Mode</label>
+      <select class="form-select" id="ai-teaching-mode"></select>
+    </div>
+    <button class="btn btn-accent btn-sm" id="save-ai-settings-btn">Save AI Settings</button>
+    <p class="text-muted-custom small mt-3 mb-0">Tutor sessions so far: <span id="ai-usage-total">-</span></p>
+  </div></div>
+
+  <div class="card card-elevated mb-4"><div class="card-body">
+    <h6 class="mb-3">Account Preferences</h6>
+    <div class="mb-2"><label class="form-label small">Theme</label>
+      <select class="form-select" id="account-theme"><option value="dark">Dark</option><option value="light">Light</option></select>
+    </div>
+    <div class="form-check mb-1"><input class="form-check-input" type="checkbox" id="account-email-notif"><label class="form-check-label small">Email notifications</label></div>
+    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="account-achievement-notif"><label class="form-check-label small">Achievement notifications</label></div>
+    <button class="btn btn-outline-accent btn-sm" id="save-account-settings-btn">Save Preferences</button>
+  </div></div>
+
+  <div class="card card-elevated mb-4"><div class="card-body">
+    <h6 class="mb-3">Security Settings</h6>
+    <p class="small mb-1">Session lifetime: <span id="sec-session">-</span> hours</p>
+    <p class="small mb-1">Minimum password length: <span id="sec-password">-</span> characters</p>
+    <p class="small mb-0">Rate limit: <span id="sec-rate">-</span> requests/min</p>
+  </div></div>
+
+  <div class="card card-elevated"><div class="card-body">
+    <h6 class="mb-3">Backup Settings</h6>
+    <button class="btn btn-accent btn-sm mb-3" id="trigger-backup-btn">Create Backup Now</button>
+    <div id="backups-list"></div>
+  </div></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_settings.js') }}"></script>
+{% endblock %}

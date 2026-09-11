@@ -1,0 +1,43 @@
+{% extends "public_base.html" %}
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+<div class="container" style="max-width:640px;">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <p class="section-eyebrow mb-1">Assessment</p>
+      <h4 class="mb-0">Leaderboard</h4>
+    </div>
+    <a href="/quiz" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead><tr><th>Rank</th><th>Student</th><th>Level</th><th>XP</th></tr></thead>
+        <tbody id="leaderboard-body">
+          <tr><td colspan="4" class="text-center text-muted-custom py-4">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(async () => {
+  const resp = await fetch('/api/quiz/leaderboard');
+  const body = await resp.json();
+  const tbody = document.getElementById('leaderboard-body');
+  const medals = ['🥇', '🥈', '🥉'];
+  tbody.innerHTML = body.data.map((entry, i) => `
+    <tr style="${entry.is_you ? 'background:rgba(255,180,84,.08);' : ''}">
+      <td>${medals[i] || (i + 1)}</td>
+      <td>${entry.name}${entry.is_you ? ' (you)' : ''}</td>
+      <td>${entry.level}</td>
+      <td>${entry.xp_total}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="4" class="text-center text-muted-custom py-4">No data yet.</td></tr>';
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,7 @@
+A student is about to take a quiz on {topic}. Here is their available performance history:
+
+{performance_history}
+
+Based on this, recommend a single difficulty level from 1 (easiest) to 5 (hardest) for their next quiz on this topic, and briefly justify it in one sentence.
+
+Respond with STRICT JSON only: {{"difficulty_level": 1-5, "justification": "one sentence"}}

@@ -1,0 +1,7 @@
+Review this student shell script (topic: {topic}) specifically for security-relevant practices — NOT whether it's dangerous to execute (that's already been screened separately), but whether it follows secure coding habits: proper input quoting, avoiding eval on unsanitized input, safe temp-file handling, least-privilege permission choices, etc.
+
+```
+{student_script}
+```
+
+List up to 2 security-practice observations (or state there are none worth noting for a script this size). For each: what the practice is, why it matters in production shell scripting, and a conceptual direction for improvement — not exact corrected code.

@@ -1,0 +1,79 @@
+{% extends "public_base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1100px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Learning Analytics</h4></div>
+    <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Avg Quiz Score</p><h4 class="mb-0" id="stat-quiz-avg">-</h4>
+    </div></div></div>
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Quiz Accuracy</p><h4 class="mb-0" id="stat-accuracy">-</h4>
+    </div></div></div>
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Avg Code Review Score</p><h4 class="mb-0" id="stat-cr-score">-</h4>
+    </div></div></div>
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Avg Hints Used</p><h4 class="mb-0" id="stat-hints">-</h4>
+    </div></div></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Weak Topics (Class-Wide)</h6>
+        <div id="weak-topics"></div>
+      </div></div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Strong Topics (Class-Wide)</h6>
+        <div id="strong-topics"></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12">
+      <div class="card card-elevated"><div class="card-body">
+        <h6 class="mb-3">Topic-wise Performance</h6>
+        <canvas id="topic-chart" height="90"></canvas>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Common Code Review Mistakes</h6>
+        <div id="common-mistakes"></div>
+      </div></div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Code Review Score Trend</h6>
+        <canvas id="trend-chart" height="150"></canvas>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="card card-elevated">
+    <div class="card-body">
+      <h6 class="mb-3">Code Review History</h6>
+      <div class="table-responsive">
+        <table class="table table-hover"><thead><tr><th>Student</th><th>Topic</th><th>Score</th><th>Hints</th><th>Date</th></tr></thead>
+          <tbody id="review-history-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_analytics.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "public_base.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Notification Center</h4></div>
+    <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <div class="card card-elevated mb-4"><div class="card-body">
+    <h6 class="mb-2">Send Announcement to All Students</h6>
+    <div class="d-flex gap-2">
+      <input type="text" class="form-control" id="announcement-input" placeholder="e.g. Class rescheduled to Friday.">
+      <button class="btn btn-accent" id="send-announcement-btn">Send</button>
+    </div>
+    <p class="text-success small mt-2 d-none" id="announcement-sent-msg"></p>
+  </div></div>
+
+  <h6 class="mb-3">Your Notifications</h6>
+  <div id="notifications-list"></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_notifications.js') }}"></script>
+{% endblock %}

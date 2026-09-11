@@ -1,0 +1,9 @@
+A student just finished a quiz on {topic}. Their score was {score_percent}%. They got {correct_count} of {total_count} questions right.
+
+Their weakest areas in this attempt were: {weak_question_summaries}
+
+Write brief, encouraging feedback (3-5 sentences) that:
+1. Acknowledges what they did well first.
+2. Names the specific concept(s) behind their mistakes, not just "you got some wrong."
+3. Gives one concrete, actionable suggestion for what to review next.
+Do not repeat the raw score number back to them (they already see it on screen) — focus on the qualitative takeaway.

@@ -1,0 +1,3 @@
+Provide Hint {hint_number} of 3 ({hint_depth_label}).
+{hint_depth_description}
+Do NOT provide the full command, script, or final answer at this stage — only the hint described above. End by inviting the student to try again.

@@ -1,0 +1,1 @@
+A student is learning shell programming, topic: {topic}. Summarize 2-3 best practices specifically relevant to what they attempted in this script, phrased as general principles they can carry forward (not specific to just this one script). Reference real Linux commands/idioms where relevant. Keep it concise and encouraging, like a faculty member's closing note on an assignment.

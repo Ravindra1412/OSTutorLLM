@@ -1,0 +1,118 @@
+{% extends "public_base.html" %}
+
+{% block title %}OSTutorLLM — Interactive AI Tutor{% endblock %}
+
+{% block content %}
+<div class="container py-4" id="tutor-app" data-active-session-id="{{ active_session_id or '' }}">
+  <div class="row">
+    <!-- Left Column: Session Controls & Context -->
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+          <h5 class="mb-0 fs-6"><i class="bi bi-cpu me-2"></i>Tutor Session Setup</h5>
+          <span class="badge bg-light text-primary" id="session-badge">No Active Session</span>
+        </div>
+        <div class="card-body">
+          <form id="tutor-setup-form">
+            <div class="mb-3">
+              <label for="topic-select" class="form-label fw-bold">Topic</label>
+              <select class="form-select" id="topic-select" required>
+                <option value="" disabled selected>Select a Linux/OS topic...</option>
+                <option value="File Permissions">File Permissions (chmod, chown)</option>
+                <option value="Process Management">Process Management (ps, kill, nice)</option>
+                <option value="Piping & Redirection">Piping &amp; Redirection (| &gt; &gt;&gt; &lt;)</option>
+                <option value="Navigation">Linux Navigation &amp; File Ops</option>
+                <option value="Loops">Shell Scripting: Loops</option>
+                <option value="Conditionals">Shell Scripting: Conditionals</option>
+                <option value="Memory Management">OS Concepts: Memory Management</option>
+                <option value="Scheduling">OS Concepts: CPU Scheduling</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="mode-select" class="form-label fw-bold">Teaching Mode</label>
+              <select class="form-select" id="mode-select" required>
+                <option value="beginner">Beginner — Conceptual &amp; Gentle</option>
+                <option value="intermediate" selected>Intermediate — Standard Step-by-Step</option>
+                <option value="advanced">Advanced — Challenging / Deep Dive</option>
+                <option value="exam_prep">Exam Prep — Concise &amp; Evaluative</option>
+                <option value="lab_practice">Lab Practice — Hands-On Command Tasks</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" id="start-session-btn">
+              <i class="bi bi-play-circle me-1"></i> Start New Session
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Hint & Progression Panel -->
+      <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-secondary text-white d-flex align-items-center justify-content-between">
+          <h6 class="mb-0 fs-6"><i class="bi bi-lightbulb me-2"></i>Pedagogical Guidance</h6>
+          <span class="badge bg-warning text-dark" id="hint-stage-badge">Stage 0</span>
+        </div>
+        <div class="card-body">
+          <p class="small text-muted mb-2">
+            OSTutorLLM uses gradual scaffolding. Ask questions, attempt commands, or request hints.
+          </p>
+          <div class="progress mb-3" style="height: 8px;">
+            <div class="progress-bar bg-info" id="hint-progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-warning btn-sm" id="request-reveal-btn" disabled>
+              <i class="bi bi-eye me-1"></i> Reveal Complete Solution
+            </button>
+            <button class="btn btn-outline-danger btn-sm" id="reset-session-btn" disabled>
+              <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Conversation
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Tutor Dialogue Stream -->
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0 d-flex flex-column" style="height: 75vh;">
+        <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
+          <div>
+            <span class="fw-bold" id="chat-header-title">OSTutorLLM Conversation</span>
+            <small class="text-muted ms-2" id="chat-header-mode"></small>
+          </div>
+          <div id="connection-status" class="small text-success">
+            <i class="bi bi-circle-fill me-1" style="font-size: 8px;"></i> Ready
+          </div>
+        </div>
+
+        <!-- Chat Scroll Area -->
+        <div class="card-body overflow-auto flex-grow-1 p-3 bg-light" id="chat-messages" style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="text-center text-muted my-auto py-5" id="chat-empty-placeholder">
+            <i class="bi bi-robot display-4 d-block mb-3 text-secondary"></i>
+            <h6 class="fw-bold">No active session selected</h6>
+            <p class="small mb-0">Choose a topic on the left and click <strong>Start New Session</strong> to begin learning.</p>
+          </div>
+        </div>
+
+        <!-- Message Input Footer -->
+        <div class="card-footer bg-white border-top p-3">
+          <form id="chat-input-form" class="d-flex gap-2">
+            <input type="text" class="form-control" id="chat-input" placeholder="Type your response, command, or question..." autocomplete="off" disabled required>
+            <button type="submit" class="btn btn-primary px-4" id="chat-send-btn" disabled>
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </form>
+          <div class="d-flex justify-content-between align-items-center mt-2 px-1">
+            <small class="text-muted" style="font-size: 0.75rem;">Backend AI Provider: <span class="fw-semibold" id="provider-badge">{{ ai_provider or 'ollama_qwen' }}</span></small>
+            <small class="text-muted" style="font-size: 0.75rem;">Gradual Hint Scaffold Active</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/tutor_chat.js') }}"></script>
+{% endblock %}

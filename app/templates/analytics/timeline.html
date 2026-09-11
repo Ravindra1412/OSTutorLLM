@@ -1,0 +1,29 @@
+{% extends "public_base.html" %}
+{% block title %}Timeline{% endblock %}
+{% block content %}
+<div class="container" style="max-width:820px;">
+  <div class="mb-4 d-flex justify-content-between align-items-end flex-wrap gap-2">
+    <div>
+      <p class="section-eyebrow mb-1">Learning Analytics</p>
+      <h4 class="mb-0">Learning Timeline</h4>
+    </div>
+    <select id="timeline-filter" class="form-select form-select-sm" style="width:auto;">
+      <option value="">All events</option>
+      <option value="quiz_attempted">Quizzes</option>
+      <option value="code_review_submitted">Code Reviews</option>
+      <option value="tutor_session">Tutor Sessions</option>
+      <option value="achievement_earned">Achievements</option>
+    </select>
+  </div>
+
+  <div id="timeline-loading" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status"></div>
+  </div>
+
+  <div id="timeline-list" class="d-flex flex-column gap-2 d-none"></div>
+  <p class="text-muted-custom small mb-0 d-none" id="timeline-empty">No learning activity recorded yet. Start a tutor session, take a quiz, or submit a code review to build your timeline.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/analytics_timeline.js') }}"></script>
+{% endblock %}

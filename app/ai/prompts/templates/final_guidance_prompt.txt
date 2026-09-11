@@ -1,0 +1,8 @@
+A student has gone through all three hints for this shell-script issue and is ready for the final guidance. You may now reveal the fix.
+
+Topic: {topic}
+Category: {category}
+Line: {line_number}
+Static finding: {static_message}
+
+Give: (1) the corrected line or construct, (2) a short explanation of why it fixes the problem, (3) one sentence connecting it to the broader concept so the student retains the reasoning, not just the syntax — matching the same philosophy as the Tutor Engine's full-reveal stage.

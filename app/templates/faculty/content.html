@@ -1,0 +1,69 @@
+{% extends "public_base.html" %}
+{% block title %}Content Management{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1100px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Content Management</h4></div>
+    <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <ul class="nav nav-tabs mb-3" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-topics">Topics</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-resources">Files</button></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tab-topics">
+      <button class="btn btn-accent btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#topic-modal">+ New Topic</button>
+      <div id="topics-list"></div>
+    </div>
+
+    <div class="tab-pane fade" id="tab-resources">
+      <form id="upload-form" class="d-flex gap-2 mb-3 flex-wrap align-items-end">
+        <div>
+          <label class="form-label">Topic</label>
+          <select class="form-select" id="upload-topic-select"></select>
+        </div>
+        <div><label class="form-label">File</label><input type="file" class="form-control" id="upload-file"></div>
+        <div><label class="form-label">Description</label><input type="text" class="form-control" id="upload-description"></div>
+        <button class="btn btn-accent" type="submit">Upload</button>
+      </form>
+      <div id="resources-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Topic create/edit modal -->
+<div class="modal fade" id="topic-modal" tabindex="-1">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">Topic</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="topic-id">
+      <div class="mb-2"><label class="form-label">Name</label><input class="form-control" id="topic-name"></div>
+      <div class="mb-2"><label class="form-label">Category</label><input class="form-control" id="topic-category"></div>
+      <div class="mb-2"><label class="form-label">Description</label><textarea class="form-control" id="topic-description"></textarea></div>
+      <div class="mb-2"><label class="form-label">Difficulty (1-5)</label><input type="number" min="1" max="5" class="form-control" id="topic-difficulty" value="1"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-accent" id="save-topic-btn">Save</button>
+    </div>
+  </div></div>
+</div>
+
+<!-- Lesson create modal -->
+<div class="modal fade" id="lesson-modal" tabindex="-1">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">New Lesson</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="lesson-topic-id">
+      <div class="mb-2"><label class="form-label">Title</label><input class="form-control" id="lesson-title"></div>
+      <div class="mb-2"><label class="form-label">Content Summary</label><textarea class="form-control" id="lesson-summary" rows="4"></textarea></div>
+      <div class="mb-2"><label class="form-label">Sequence Order</label><input type="number" class="form-control" id="lesson-order" value="0"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-accent" id="save-lesson-btn">Save</button></div>
+  </div></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_content.js') }}"></script>
+{% endblock %}

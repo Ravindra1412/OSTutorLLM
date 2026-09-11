@@ -1,0 +1,62 @@
+{% extends "public_base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0">Reports</h4></div>
+    <a href="{{ url_for('faculty_pages_bp.dashboard_page') }}" class="btn btn-outline-accent btn-sm">Back to Dashboard</a>
+  </div>
+
+  <div class="d-flex flex-column gap-3">
+    <div class="card card-elevated"><div class="card-body d-flex justify-content-between align-items-center">
+      <div><strong>Class Performance Report</strong><p class="text-muted-custom small mb-0">Average mastery per topic, across every student.</p></div>
+      <div class="d-flex gap-1">
+        <a class="btn btn-outline-accent btn-sm" href="/api/faculty/reports/class-performance?format=csv">CSV</a>
+        <a class="btn btn-outline-accent btn-sm" href="/api/faculty/reports/class-performance?format=excel">Excel</a>
+        <a class="btn btn-accent btn-sm" href="/api/faculty/reports/class-performance?format=pdf">PDF</a>
+      </div>
+    </div></div>
+
+    <div class="card card-elevated"><div class="card-body d-flex justify-content-between align-items-center">
+      <div><strong>Topic Mastery Report</strong><p class="text-muted-custom small mb-0">Completion rate (75%+ mastery) per topic.</p></div>
+      <div class="d-flex gap-1">
+        <a class="btn btn-outline-accent btn-sm" href="/api/faculty/reports/topic-mastery?format=csv">CSV</a>
+        <a class="btn btn-outline-accent btn-sm" href="/api/faculty/reports/topic-mastery?format=excel">Excel</a>
+        <a class="btn btn-accent btn-sm" href="/api/faculty/reports/topic-mastery?format=pdf">PDF</a>
+      </div>
+    </div></div>
+
+    <div class="card card-elevated"><div class="card-body d-flex justify-content-between align-items-center">
+      <div><strong>Faculty Summary Report</strong><p class="text-muted-custom small mb-0">Overall learning score for every student.</p></div>
+      <div class="d-flex gap-1">
+        <a class="btn btn-outline-accent btn-sm" href="/api/faculty/reports/faculty-summary?format=csv">CSV</a>
+        <a class="btn btn-outline-accent btn-sm" href="/api/faculty/reports/faculty-summary?format=excel">Excel</a>
+        <a class="btn btn-accent btn-sm" href="/api/faculty/reports/faculty-summary?format=pdf">PDF</a>
+      </div>
+    </div></div>
+
+    <div class="card card-elevated"><div class="card-body">
+      <strong>Student Progress Report</strong>
+      <p class="text-muted-custom small mb-2">Per-student — go to a student's detail page and use "Download Report", or enter an ID here:</p>
+      <div class="d-flex gap-2">
+        <input type="number" class="form-control" id="student-id-input" placeholder="Student ID" style="max-width:150px;">
+        <a class="btn btn-outline-accent btn-sm" id="student-csv-link" href="#">CSV</a>
+        <a class="btn btn-accent btn-sm" id="student-pdf-link" href="#">PDF</a>
+      </div>
+    </div></div>
+
+    <div class="card card-elevated"><div class="card-body">
+      <strong>Quiz Report</strong>
+      <p class="text-muted-custom small mb-2">Per-quiz — go to Quizzes → Results for the download links, or enter a quiz ID here:</p>
+      <div class="d-flex gap-2">
+        <input type="number" class="form-control" id="quiz-id-input" placeholder="Quiz ID" style="max-width:150px;">
+        <a class="btn btn-outline-accent btn-sm" id="quiz-csv-link" href="#">CSV</a>
+        <a class="btn btn-accent btn-sm" id="quiz-pdf-link" href="#">PDF</a>
+      </div>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_reports.js') }}"></script>
+{% endblock %}

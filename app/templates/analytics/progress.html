@@ -1,0 +1,67 @@
+{% extends "public_base.html" %}
+{% block title %}Progress{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1080px;">
+  <div class="mb-4">
+    <p class="section-eyebrow mb-1">Learning Analytics</p>
+    <h4 class="mb-0">Progress</h4>
+  </div>
+
+  <div id="progress-loading" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status"></div>
+  </div>
+
+  <div id="progress-content" class="d-none">
+    <div class="row g-3 mb-4">
+      <div class="col-lg-6">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Topic Mastery</h6>
+            <canvas id="topic-mastery-chart" height="220"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Daily Activity (last 14 days)</h6>
+            <canvas id="daily-activity-chart" height="220"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-lg-6">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Quiz Performance Over Time</h6>
+            <canvas id="quiz-performance-chart" height="220"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Strength vs Weakness</h6>
+            <p class="text-muted-custom small">Topics below 60% mastery need attention.</p>
+            <div id="strength-weakness-list" class="d-flex flex-column gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-elevated mb-4">
+      <div class="card-body">
+        <h6 class="mb-3">Completed Topics</h6>
+        <div id="completed-topics-list" class="d-flex flex-wrap gap-2"></div>
+        <p class="text-muted-custom small mb-0 d-none" id="completed-topics-empty">No topics completed yet — 75%+ mastery unlocks this list.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/analytics_progress.js') }}"></script>
+{% endblock %}

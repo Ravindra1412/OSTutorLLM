@@ -1,0 +1,72 @@
+{% extends "public_base.html" %}
+{% block title %}Student Detail{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1000px;" data-student-id="{{ student_id }}">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div><p class="section-eyebrow mb-1">Faculty Portal</p><h4 class="mb-0" id="student-name">Loading...</h4></div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('faculty_pages_bp.students_page') }}" class="btn btn-outline-accent btn-sm">Back to Students</a>
+      <a href="/api/faculty/students/{{ student_id }}/report?format=pdf" class="btn btn-accent btn-sm">Download Report (PDF)</a>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Overall Score</p><h4 class="mb-0" id="stat-overall">-</h4>
+    </div></div></div>
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Level / XP</p><h4 class="mb-0" id="stat-level">-</h4>
+    </div></div></div>
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Topics Tracked</p><h4 class="mb-0" id="stat-topics">-</h4>
+    </div></div></div>
+    <div class="col-md-3 col-6"><div class="card card-elevated h-100"><div class="card-body">
+      <p class="text-muted-custom small mb-1">Time Spent</p><h4 class="mb-0" id="stat-time">-</h4>
+    </div></div></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Quiz History</h6>
+        <div id="quiz-history" style="max-height:220px;overflow-y:auto;"></div>
+      </div></div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Code Review History</h6>
+        <div id="code-review-history" style="max-height:220px;overflow-y:auto;"></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Tutor Sessions</h6>
+        <div id="tutor-sessions" style="max-height:220px;overflow-y:auto;"></div>
+      </div></div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card card-elevated h-100"><div class="card-body">
+        <h6 class="mb-3">Achievements</h6>
+        <div id="achievements-list"></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="card card-elevated">
+    <div class="card-body">
+      <h6 class="mb-3">Send Alert to Student</h6>
+      <div class="d-flex gap-2">
+        <input type="text" class="form-control" id="alert-message" placeholder="e.g. Please review File Permissions before next week's quiz.">
+        <button class="btn btn-accent" id="send-alert-btn">Send</button>
+      </div>
+      <p class="text-success small mt-2 d-none" id="alert-sent-msg">Alert sent.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/faculty_student_detail.js') }}"></script>
+{% endblock %}

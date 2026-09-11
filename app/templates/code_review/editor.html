@@ -1,0 +1,76 @@
+{% extends "public_base.html" %}
+{% block title %}Code Review{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1100px;" data-session-id="{{ session_id or '' }}">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    <div>
+      <p class="section-eyebrow mb-1">Shell Programming</p>
+      <h4 class="mb-0">Code Review</h4>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('code_review_pages_bp.history_page') }}" class="btn btn-outline-accent btn-sm"><i class="bi bi-clock-history me-1"></i>History</a>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-5">
+      <label class="form-label">Topic</label>
+      <select class="form-select" id="topic-select">
+        {% for t in topics %}
+        <option value="{{ t }}" {{ 'selected' if t == topic }}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="editor-shell mb-3">
+    <div class="editor-pane">
+      <div class="terminal__titlebar">
+        <span class="terminal__dot terminal__dot--r"></span>
+        <span class="terminal__dot terminal__dot--y"></span>
+        <span class="terminal__dot terminal__dot--g"></span>
+        <span class="terminal__label">script.sh</span>
+      </div>
+      <div class="editor-pane__body">
+        <textarea class="editor-textarea" id="script-input" spellcheck="false" aria-label="Shell script input" placeholder="#!/bin/bash&#10;...">#!/bin/bash
+for f in *.txt
+  do cat $f
+done</textarea>
+      </div>
+    </div>
+
+    <div class="editor-pane">
+      <div class="terminal__titlebar">
+        <i class="bi bi-clipboard-check text-accent me-2"></i>
+        <span class="terminal__label mb-0">Feedback</span>
+      </div>
+      <div class="editor-pane__body" id="feedback-output">
+        <div class="text-center text-muted-custom py-5">
+          <i class="bi bi-arrow-left-circle fs-2 d-block mb-2"></i>
+          Paste a script and click "Submit for Review."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div id="score-card-inline"></div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-accent" id="compare-btn" style="display:none;"><i class="bi bi-arrow-left-right me-1"></i>Compare with Previous</button>
+      <button class="btn btn-accent" id="submit-btn"><i class="bi bi-search me-1"></i>Submit for Review</button>
+    </div>
+  </div>
+
+  <div id="comparison-panel" class="card mb-4" style="display:none;">
+    <div class="card-body">
+      <h6 class="mb-3"><i class="bi bi-arrow-left-right text-accent me-2"></i>Improvement Comparison</h6>
+      <p id="improvement-summary" class="mb-3"></p>
+      <pre class="code-block" id="diff-output" style="white-space:pre-wrap;"></pre>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/code_review_engine.js') }}"></script>
+{% endblock %}

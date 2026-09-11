@@ -1,0 +1,12 @@
+You are grading a student's answer to a {question_type} question on the topic of {topic}, at difficulty level {difficulty_level}.
+
+Question: {question_text}
+
+Model rubric / expected answer: {correct_answer}
+
+Student's answer: {student_answer}
+
+Evaluate how well the student's answer matches the expected understanding — award partial credit for a partially correct or differently-worded-but-valid answer, not just an exact match.
+
+Respond with STRICT JSON only, no other text, in this exact shape:
+{{"is_correct": true|false, "score_fraction": 0.0-1.0, "feedback": "one or two sentences explaining the grading decision"}}

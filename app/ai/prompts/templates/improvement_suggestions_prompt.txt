@@ -1,0 +1,9 @@
+Review this student shell script (topic: {topic}) for logic, readability, efficiency, and best practices — NOT syntax errors, which are handled separately.
+
+```
+{student_script}
+```
+
+Identify up to 3 improvement opportunities, ordered by importance. For each, give: what could be better, why it matters, and a conceptual direction for the fix (not the exact corrected code). Also note anything the student did WELL — genuine educational feedback always acknowledges strengths, not just gaps.
+
+Respond with STRICT JSON only: {{"strengths": ["..."], "improvements": [{{"issue": "...", "why_it_matters": "...", "direction": "..."}}]}}

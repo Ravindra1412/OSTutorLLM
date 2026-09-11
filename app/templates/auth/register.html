@@ -1,0 +1,47 @@
+{% extends "auth/_auth_layout.html" %}
+{% block title %}Create Account{% endblock %}
+{% block auth_content %}
+<h3 class="fw-bold mb-1">Create your account</h3>
+<p class="text-muted-custom mb-4">Start learning Linux the right way.</p>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+
+  <div class="mb-3">
+    <label class="form-label d-block">I am a</label>
+    <div class="btn-group w-100" role="group">
+      {% for subfield in form.role %}
+        <input type="radio" class="btn-check" name="{{ subfield.name }}" id="{{ subfield.id }}" value="{{ subfield.data }}" {{ 'checked' if subfield.data == 'student' }}>
+        <label class="btn btn-outline-accent" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="mb-3">
+    {{ form.name.label(class="form-label") }}
+    {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Jordan Smith") }}
+    {% for error in form.name.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.email.label(class="form-label") }}
+    {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="you@university.edu") }}
+    {% for error in form.email.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.password.label(class="form-label") }}
+    {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), placeholder="At least 8 characters, 1 letter + 1 number") }}
+    {% for error in form.password.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+  </div>
+
+  <div class="mb-4">
+    {{ form.confirm_password.label(class="form-label") }}
+    {{ form.confirm_password(class="form-control" + (" is-invalid" if form.confirm_password.errors else "")) }}
+    {% for error in form.confirm_password.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+  </div>
+
+  <button type="submit" class="btn btn-accent w-100 btn-lg mb-3">Create Account</button>
+  <p class="text-center text-muted-custom mb-0">Already have an account? <a href="{{ url_for('auth_pages_bp.login') }}">Log in</a></p>
+</form>
+{% endblock %}

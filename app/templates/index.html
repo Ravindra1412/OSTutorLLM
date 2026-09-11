@@ -1,0 +1,20 @@
+{% extends "public_base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="py-6">
+  <div class="container text-center" style="max-width:640px;">
+    <p class="section-eyebrow mb-2">// operating systems · ai tutor</p>
+    <h1 class="display-5 fw-bold mb-3">OSTutorLLM</h1>
+    <p class="fs-5 text-muted-custom mb-4">Authentication & User Management module — Part 3.5.</p>
+    {% if current_user.is_authenticated %}
+      <p class="mb-4">Signed in as <strong>{{ current_user.name }}</strong> ({{ current_user.role }}).</p>
+      <a href="{{ url_for('auth_pages_bp.profile') }}" class="btn btn-accent btn-lg">Go to Profile</a>
+    {% else %}
+      <div class="d-flex gap-3 justify-content-center">
+        <a href="{{ url_for('auth_pages_bp.login') }}" class="btn btn-outline-accent btn-lg">Log In</a>
+        <a href="{{ url_for('auth_pages_bp.register') }}" class="btn btn-accent btn-lg">Get Started</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

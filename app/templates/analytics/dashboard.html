@@ -1,0 +1,117 @@
+{% extends "public_base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container" style="max-width:1080px;">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div>
+      <p class="section-eyebrow mb-1">Learning Analytics</p>
+      <h4 class="mb-0">Your Dashboard</h4>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('analytics_pages_bp.progress_page') }}" class="btn btn-outline-accent btn-sm">Progress</a>
+      <a href="{{ url_for('analytics_pages_bp.achievements_page') }}" class="btn btn-outline-accent btn-sm">Achievements</a>
+      <a href="{{ url_for('analytics_pages_bp.timeline_page') }}" class="btn btn-outline-accent btn-sm">Timeline</a>
+      <a href="{{ url_for('analytics_pages_bp.recommendations_page') }}" class="btn btn-outline-accent btn-sm">Recommendations</a>
+      <button class="btn btn-accent btn-sm" id="refresh-dashboard-btn"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+    </div>
+  </div>
+
+  <div id="dashboard-loading" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status"></div>
+    <p class="text-muted-custom mt-3 mb-0">Loading your dashboard…</p>
+  </div>
+
+  <div id="dashboard-content" class="d-none">
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 col-6">
+        <div class="card card-elevated h-100"><div class="card-body text-center">
+          <div class="text-muted-custom small mb-1">Overall Score</div>
+          <div class="fs-2 fw-bold font-display" id="stat-overall">–</div>
+        </div></div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card card-elevated h-100"><div class="card-body text-center">
+          <div class="text-muted-custom small mb-1">Level</div>
+          <div class="fs-2 fw-bold font-display" id="stat-level">–</div>
+          <div class="small text-muted-custom" id="stat-xp"></div>
+        </div></div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card card-elevated h-100"><div class="card-body text-center">
+          <div class="text-muted-custom small mb-1">Streak</div>
+          <div class="fs-2 fw-bold font-display" id="stat-streak">–</div>
+        </div></div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card card-elevated h-100"><div class="card-body text-center">
+          <div class="text-muted-custom small mb-1">Topics Tracked</div>
+          <div class="fs-2 fw-bold font-display" id="stat-topics">–</div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-lg-7">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Daily Goal</h6>
+            <div class="progress mb-2" style="height:10px;background:var(--bg-elevated-hover);">
+              <div id="daily-goal-bar" class="progress-bar bg-warning" style="width:0%"></div>
+            </div>
+            <div class="small text-muted-custom" id="daily-goal-text">–</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Time Spent Learning</h6>
+            <div class="d-flex justify-content-between small">
+              <span class="text-muted-custom">Today</span><span id="time-today">–</span>
+            </div>
+            <div class="d-flex justify-content-between small">
+              <span class="text-muted-custom">This week</span><span id="time-week">–</span>
+            </div>
+            <div class="d-flex justify-content-between small">
+              <span class="text-muted-custom">This month</span><span id="time-month">–</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-lg-6">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Weak Topics</h6>
+            <div id="weak-topics-list" class="d-flex flex-column gap-2"></div>
+            <p class="text-muted-custom small mb-0 d-none" id="weak-topics-empty">No weak topics detected yet — keep going!</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-elevated h-100">
+          <div class="card-body">
+            <h6 class="mb-3">Recommended Next</h6>
+            <div id="dashboard-recommendations" class="d-flex flex-column gap-2"></div>
+            <p class="text-muted-custom small mb-0 d-none" id="recommendations-empty">Nothing to recommend right now.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-elevated mb-4">
+      <div class="card-body">
+        <h6 class="mb-3">Recent Activity</h6>
+        <div id="dashboard-timeline" class="d-flex flex-column gap-2"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/analytics_dashboard.js') }}"></script>
+{% endblock %}

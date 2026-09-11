@@ -1,0 +1,91 @@
+{% extends "public_base.html" %}
+{% block title %}Quiz Result{% endblock %}
+{% block content %}
+<div class="container" style="max-width:820px;" data-attempt-id="{{ attempt_id }}">
+  <div id="result-loading" class="text-center py-5 text-muted-custom">
+    <span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span>
+    <p class="mt-2">Loading your result...</p>
+  </div>
+
+  <div id="result-content" class="d-none">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="card card-elevated text-center">
+          <div class="card-body py-5">
+            <div class="fs-1 fw-bold font-display" id="score-display">--%</div>
+            <div class="text-muted-custom small mb-3" id="score-fraction-display"></div>
+            <div id="badges-earned-container"></div>
+            <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+              <a href="{{ url_for('quiz_pages_bp.dashboard') }}" class="btn btn-accent"><i class="bi bi-arrow-repeat me-1"></i>New Quiz</a>
+              <a href="{{ url_for('quiz_pages_bp.review', attempt_id=attempt_id) }}" class="btn btn-outline-accent">Review Answers</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h6 class="mb-2"><i class="bi bi-lightbulb text-accent me-2"></i>Feedback</h6>
+            <p class="text-muted-custom mb-0" id="mistake-analysis-text">—</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h6 class="mb-2"><i class="bi bi-signpost text-accent me-2"></i>What's Next</h6>
+            <p class="text-muted-custom mb-0" id="next-topic-text">—</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(async function () {
+  const attemptId = document.querySelector('[data-attempt-id]').getAttribute('data-attempt-id');
+  const loading = document.getElementById('result-loading');
+  const content = document.getElementById('result-content');
+
+  // If we just submitted in this browser tab, quiz_engine.js stashed the
+  // full submit response (including AI feedback) in sessionStorage —
+  // prefer that. Otherwise (e.g. a page refresh), fall back to the
+  // persistent /review endpoint, which has the score and per-question
+  // detail but not the ephemeral AI mistake-analysis text.
+  const stashed = sessionStorage.getItem('quiz_result_' + attemptId);
+  let data;
+  if (stashed) {
+    data = JSON.parse(stashed);
+  } else {
+    const resp = await fetch(`/api/quiz/${attemptId}/review`);
+    const body = await resp.json();
+    data = {
+      score_percent: body.data.score,
+      summary: { correct_count: body.data.per_question.filter(q => q.is_correct).length, total_questions: body.data.per_question.length },
+      feedback: { mistake_analysis: 'Refresh lost the AI feedback for this attempt — see the Review page for full per-question detail.', next_topic_recommendation: null },
+      newly_earned_badges: [],
+    };
+  }
+
+  document.getElementById('score-display').textContent = data.score_percent + '%';
+  document.getElementById('score-fraction-display').textContent =
+    `${data.summary.correct_count} / ${data.summary.total_questions} correct`;
+  document.getElementById('mistake-analysis-text').textContent = data.feedback.mistake_analysis;
+  document.getElementById('next-topic-text').textContent =
+    data.feedback.next_topic_recommendation ? `Try "${data.feedback.next_topic_recommendation}" next.` : 'Keep practicing across topics!';
+
+  const badgeContainer = document.getElementById('badges-earned-container');
+  (data.newly_earned_badges || []).forEach(name => {
+    const span = document.createElement('span');
+    span.className = 'badge-tier badge-gold d-inline-block me-1 mb-1';
+    span.innerHTML = `<i class="bi bi-trophy-fill me-1"></i>${name}`;
+    badgeContainer.appendChild(span);
+  });
+
+  loading.classList.add('d-none');
+  content.classList.remove('d-none');
+})();
+</script>
+{% endblock %}
