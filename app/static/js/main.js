@@ -1,7 +1,8 @@
 /* =====================================================================
    OSTutorLLM — main.js
    Shared, site-wide interactivity: theme toggle, sidebar toggle,
-   mobile nav, toast helper, generic form validation, scroll behaviour.
+   mobile nav, toast helper, generic form validation, scroll behaviour,
+   password visibility toggle.
    Loaded on every page via base.html.
    ===================================================================== */
 
@@ -125,6 +126,28 @@
     });
   }
 
+  /* ---------------- Password Visibility Toggle ---------------- */
+  function initPasswordToggle() {
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-password-toggle]");
+      if (!btn) return;
+
+      const group = btn.closest(".input-group");
+      if (!group) return;
+
+      const input = group.querySelector("input");
+      if (!input) return;
+
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+
+      const icon = btn.querySelector("i");
+      if (icon) {
+        icon.className = isPassword ? "bi bi-eye-slash" : "bi bi-eye";
+      }
+    });
+  }
+
   /* ---------------- Copy-to-clipboard (Tutor Chat / Code blocks) ---------------- */
   function initCopyButtons() {
     document.addEventListener("click", (e) => {
@@ -189,6 +212,7 @@
     initSidebar();
     initFormValidation();
     initPasswordStrength();
+    initPasswordToggle();
     initCopyButtons();
     initScrollBehaviour();
     initRevealOnScroll();
