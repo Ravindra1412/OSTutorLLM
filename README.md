@@ -81,11 +81,11 @@ while still exercising the platform's complete teaching workflow.
 │  │  Auth  │ │  Tutor │ │   Quiz   │ │Code Review │ │  Analytics │  │
 │  │ Engine │ │ Engine │ │  Engine  │ │  Engine    │ │   Engine   │  │
 │  └────┬───┘ └────┬───┘ └────┬─────┘ └─────┬──────┘ └──────┬─────┘  │
-│       │          │          │             │               │      │
-│       └──────────┴─────┬────┴─────────────┴───────────────┘      │
+│       │          │          │             │               │        │
+│       └──────────┴─────┬────┴─────────────┴───────────────┘        │
 │                        │           ┌──────────────┐                │
-│                    Faculty Admin ──┤ shared tables│               │
-│                                    └──────┬───────┘               │
+│                    Faculty Admin ──┤ shared tables│                │
+│                                    └──────┬───────┘                │
 └───────────────────────────────────────────┼────────────────────────┘
                                             │  SQLAlchemy ORM
                                     ┌───────▼─────────────┐
