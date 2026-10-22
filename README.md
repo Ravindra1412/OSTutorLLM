@@ -106,9 +106,7 @@ Flask blueprints translating HTTP ↔ service calls — see
 
 ## 4. Screenshots
 
-*(Add screenshots here before final submission — see `docs/DEMO_SCRIPT.md`
-for a suggested capture list: student dashboard, tutor chat, quiz in
-progress, code review feedback, faculty analytics, faculty content manager.)*
+ 
 
 ```
 docs/screenshots/
