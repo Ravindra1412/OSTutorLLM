@@ -71,32 +71,32 @@ while still exercising the platform's complete teaching workflow.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Browser (Bootstrap 5 + vanilla JS)            │
-│      Student pages          Faculty pages         Auth pages       │
-└──────────────────────────────┬─────────────────────────────────────┘
+│                     Browser (Bootstrap 5 + vanilla JS)          │
+│      Student pages          Faculty pages         Auth pages    │
+└──────────────────────────────┬──────────────────────────────────┘
                                 │  JSON over HTTPS
 ┌──────────────────────────────▼─────────────────────────────────────┐
-│                      Flask Application (Gunicorn)                    │
-│  ┌────────┐ ┌────────┐ ┌──────────┐ ┌───────────┐ ┌────────────┐  │
-│  │  Auth  │ │  Tutor  │ │   Quiz    │ │Code Review │ │  Analytics  │  │
-│  │ Engine │ │ Engine  │ │  Engine   │ │  Engine    │ │   Engine    │  │
-│  └────┬───┘ └────┬────┘ └────┬─────┘ └─────┬──────┘ └──────┬─────┘  │
-│       │          │           │             │                │        │
-│       └──────────┴─────┬─────┴─────────────┴────────────────┘        │
-│                          │         ┌──────────────┐                    │
-│                    Faculty Admin ──┤ shared tables │                    │
-│                                    └──────┬────────┘                    │
-└───────────────────────────────────────────┼─────────────────────────────┘
-                                             │  SQLAlchemy ORM
-                                    ┌────────▼─────────┐
+│                      Flask Application (Gunicorn)                  │
+│  ┌────────┐ ┌────────┐ ┌──────────┐ ┌────────────┐ ┌────────────┐  │
+│  │  Auth  │ │  Tutor │ │   Quiz   │ │Code Review │ │  Analytics │  │
+│  │ Engine │ │ Engine │ │  Engine  │ │  Engine    │ │   Engine   │  │
+│  └────┬───┘ └────┬───┘ └────┬─────┘ └─────┬──────┘ └──────┬─────┘  │
+│       │          │          │             │               │      │
+│       └──────────┴─────┬────┴─────────────┴───────────────┘      │
+│                        │           ┌──────────────┐                │
+│                    Faculty Admin ──┤ shared tables│               │
+│                                    └──────┬───────┘               │
+└───────────────────────────────────────────┼────────────────────────┘
+                                            │  SQLAlchemy ORM
+                                    ┌───────▼─────────────┐
                                     │  SQLite / Postgres  │
-                                    └────────┬─────────┘
+                                    └────────┬────────────┘
                                              │
-                              ┌──────────────▼──────────────┐
-                              │   LLM Provider (pluggable)     │
-                              │  Mock / OpenAI / DeepSeek /      │
-                              │           Ollama                  │
-                              └────────────────────────────────┘
+                              ┌──────────────▼────────────────┐
+                              │   LLM Provider (pluggable)    │
+                              │  Mock / OpenAI / DeepSeek /   │
+                              │           Ollama              │
+                              └───────────────────────────────┘
 ```
 
 Every engine (Tutor, Quiz, Code Review, Analytics, Faculty) is its own
