@@ -107,22 +107,21 @@ Flask blueprints translating HTTP ↔ service calls — see
 ## 4. Screenshots
 
 #### Student Dashboard
-<img width="1352" height="634" alt="Student Dashboard" src="https://github.com/user-attachments/assets/72d4adfc-1ad9">
+<img width="1352" height="634" alt="image" src="https://github.com/user-attachments/assets/72d4adfc-1ad9-4e94-9118-382d4a508292" />
 #### Tutor Chat
-<img width="1336" height="630" alt="Tutor Chat" src="https://github.com/user-attachments/assets/d81f1c72-aa12">
+<img width="1336" height="630" alt="image" src="https://github.com/user-attachments/assets/d81f1c72-aa12-4934-abc4-9931b90d2a65" />
 #### Quiz in Progress
-<img width="1324" height="630" alt="Quiz in Progress" src="https://github.com/user-attachments/assets/6a9f9647-e634">
-<img width="1334" height="633" alt="Quiz Feedback" src="https://github.com/user-attachments/assets/8b14e854-f101">
+<img width="1324" height="630" alt="image" src="https://github.com/user-attachments/assets/6a9f9647-e634-4e14-9dd4-7c44f4c958d9" />
+<img width="1334" height="633" alt="image" src="https://github.com/user-attachments/assets/8b14e854-f101-4462-ae4b-bd62bf7d590d" />
 #### Code Review Feedback
-<img width="1333" height="622" alt="Code Review" src="https://github.com/user-attachments/assets/8953d742-489d">
+<img width="1333" height="622" alt="image" src="https://github.com/user-attachments/assets/8953d742-489d-4591-8053-21075f6d000f" />
 #### Faculty Dashboard
-<img width="1345" height="631" alt="Faculty Dashboard" src="https://github.com/user-attachments/assets/c448c758-72fd">
+<img width="1345" height="631" alt="image" src="https://github.com/user-attachments/assets/c448c758-72fd-4863-98ef-69b8c7bab866" />
 #### Faculty Analytics
-<img width="1343" height="497" alt="Faculty Analytics" src="https://github.com/user-attachments/assets/4c69a4af-b7ab">
-<img width="1336" height="406" alt="" src="https://github.com/user-attachments/assets/eed61e53-ad87">
-<img width="1292" height="527" alt="" src="https://github.com/user-attachments/assets/81d11733-ce45">
+<img width="1343" height="497" alt="image" src="https://github.com/user-attachments/assets/4c69a4af-b7ab-421a-8513-f7d26e8f8e88" />
+<img width="1336" height="406" alt="image" src="https://github.com/user-attachments/assets/eed61e53-ad87-4f2c-aef8-2fe641342315" />
+<img width="1292" height="527" alt="image" src="https://github.com/user-attachments/assets/81d11733-ce45-47a0-834c-fa4560ef5152" />
 
- 
 
 ```
 docs/screenshots/
