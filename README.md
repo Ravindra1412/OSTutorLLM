@@ -107,41 +107,36 @@ Flask blueprints translating HTTP ↔ service calls — see
 ## 4. Screenshots
 
 #### Student Dashboard
+
 <img width="1352" height="634" alt="image" src="https://github.com/user-attachments/assets/72d4adfc-1ad9-4e94-9118-382d4a508292" />
+
 #### Tutor Chat
+
 <img width="1336" height="630" alt="image" src="https://github.com/user-attachments/assets/d81f1c72-aa12-4934-abc4-9931b90d2a65" />
+
 #### Quiz in Progress
+
 <img width="1324" height="630" alt="image" src="https://github.com/user-attachments/assets/6a9f9647-e634-4e14-9dd4-7c44f4c958d9" />
+
 <img width="1334" height="633" alt="image" src="https://github.com/user-attachments/assets/8b14e854-f101-4462-ae4b-bd62bf7d590d" />
+
 #### Code Review Feedback
+
 <img width="1333" height="622" alt="image" src="https://github.com/user-attachments/assets/8953d742-489d-4591-8053-21075f6d000f" />
+
 #### Faculty Dashboard
+
 <img width="1345" height="631" alt="image" src="https://github.com/user-attachments/assets/c448c758-72fd-4863-98ef-69b8c7bab866" />
+
 #### Faculty Analytics
+
 <img width="1343" height="497" alt="image" src="https://github.com/user-attachments/assets/4c69a4af-b7ab-421a-8513-f7d26e8f8e88" />
+
 <img width="1336" height="406" alt="image" src="https://github.com/user-attachments/assets/eed61e53-ad87-4f2c-aef8-2fe641342315" />
+
 <img width="1292" height="527" alt="image" src="https://github.com/user-attachments/assets/81d11733-ce45-47a0-834c-fa4560ef5152" />
 
 
-```
-docs/screenshots/
-├── 01-student-dashboard.png
-<img width="1352" height="634" alt="image" src="https://github.com/user-attachments/assets/72d4adfc-1ad9-4e94-9118-382d4a508292" />
-├── 02-tutor-chat.png
-<img width="1336" height="630" alt="image" src="https://github.com/user-attachments/assets/d81f1c72-aa12-4934-abc4-9931b90d2a65" />
-├── 03-quiz-in-progress.png
-<img width="1324" height="630" alt="image" src="https://github.com/user-attachments/assets/6a9f9647-e634-4e14-9dd4-7c44f4c958d9" />
-<img width="1334" height="633" alt="image" src="https://github.com/user-attachments/assets/8b14e854-f101-4462-ae4b-bd62bf7d590d" />
-├── 04-code-review-feedback.png
-<img width="1333" height="622" alt="image" src="https://github.com/user-attachments/assets/8953d742-489d-4591-8053-21075f6d000f" />
-├── 05-faculty-dashboard.png
-<img width="1345" height="631" alt="image" src="https://github.com/user-attachments/assets/c448c758-72fd-4863-98ef-69b8c7bab866" />
-└── 06-faculty-analytics.png
-<img width="1343" height="497" alt="image" src="https://github.com/user-attachments/assets/4c69a4af-b7ab-421a-8513-f7d26e8f8e88" />
-<img width="1336" height="406" alt="image" src="https://github.com/user-attachments/assets/eed61e53-ad87-4f2c-aef8-2fe641342315" />
-<img width="1292" height="527" alt="image" src="https://github.com/user-attachments/assets/81d11733-ce45-47a0-834c-fa4560ef5152" />
-
-```
 
 ## 5. Installation
 
