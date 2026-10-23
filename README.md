@@ -106,6 +106,22 @@ Flask blueprints translating HTTP ↔ service calls — see
 
 ## 4. Screenshots
 
+#### Student Dashboard
+<img width="1352" height="634" alt="Student Dashboard" src="https://github.com/user-attachments/assets/72d4adfc-1ad9">
+#### Tutor Chat
+<img width="1336" height="630" alt="Tutor Chat" src="https://github.com/user-attachments/assets/d81f1c72-aa12">
+#### Quiz in Progress
+<img width="1324" height="630" alt="Quiz in Progress" src="https://github.com/user-attachments/assets/6a9f9647-e634">
+<img width="1334" height="633" alt="Quiz Feedback" src="https://github.com/user-attachments/assets/8b14e854-f101">
+#### Code Review Feedback
+<img width="1333" height="622" alt="Code Review" src="https://github.com/user-attachments/assets/8953d742-489d">
+#### Faculty Dashboard
+<img width="1345" height="631" alt="Faculty Dashboard" src="https://github.com/user-attachments/assets/c448c758-72fd">
+#### Faculty Analytics
+<img width="1343" height="497" alt="Faculty Analytics" src="https://github.com/user-attachments/assets/4c69a4af-b7ab">
+<img width="1336" height="406" alt="" src="https://github.com/user-attachments/assets/eed61e53-ad87">
+<img width="1292" height="527" alt="" src="https://github.com/user-attachments/assets/81d11733-ce45">
+
  
 
 ```
